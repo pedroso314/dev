@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RockDev | Portfólio Minimalista & Estiloso</title>
+  
+  <!-- Fontes do Google: Inter e JetBrains Mono para toque dev -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          },
+          colors: {
+            brand: {
+              50: '#f0fdfa',
+              500: '#14b8a6',
+              600: '#0d9488',
+              accent: '#8b5cf6', // Violeta neon
+              neon: '#06b6d4'    // Ciano neon
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Scroll suave */
+    html {
+      scroll-behavior: smooth;
+    }
+
+    /* Fundo escuro com gradiente suave de malha */
+    body {
+      background-color: #0b0f17;
+      color: #e2e8f0;
+      overflow-x: hidden;
+    }
+
+    /* Firula CSS 1: Glow / Neon Suave */
+    .glow-cyan {
+      box-shadow: 0 0 25px -5px rgba(6, 182, 212, 0.25);
+    }
+    
+    .glow-purple {
+      box-shadow: 0 0 25px -5px rgba(139, 92, 246, 0.25);
+    }
+
+    .text-gradient {
+      background: linear-gradient(135deg, #06b6d4 0%, #8b5cf6 50%, #ec4899 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .border-gradient {
+      border-image: linear-gradient(to right, #06b6d4, #8b5cf6) 1;
+    }
+
+    /* Firula CSS 2: Glassmorphism Card com Hover 3D suave */
+    .glass-card {
+      background: rgba(18, 24, 38, 0.7);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .glass-card:hover {
+      transform: translateY(-8px);
+      border-color: rgba(6, 182, 212, 0.4);
+      box-shadow: 0 15px 30px -10px rgba(6, 182, 212, 0.2);
+    }
+
+    /* Efeito de grade cibernética no background */
+    .bg-grid {
+      background-size: 40px 40px;
+      background-image: 
+        linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    }
+
+    /* Animação Pulsante Sutil */
+    @keyframes pulseGlow {
+      0%, 100% { opacity: 0.4; transform: scale(1); }
+      50% { opacity: 0.7; transform: scale(1.05); }
+    }
+
+    .animate-pulse-glow {
+      animation: pulseGlow 6s infinite ease-in-out;
+    }
+
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #0b0f17;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #1e293b;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #06b6d4;
+    }
+  </style>
+</head>
+<body class="font-sans antialiased selection:bg-cyan-500 selection:text-black bg-grid relative">
+
+  <!-- Efeitos de luz de fundo (Glow Orbs) -->
+  <div class="fixed top-[-10%] left-[-10%] w-[500px] h-[500px] bg-cyan-600/10 rounded-full blur-[120px] pointer-events-none animate-pulse-glow"></div>
+  <div class="fixed bottom-[-10%] right-[-10%] w-[500px] h-[500px] bg-purple-600/10 rounded-full blur-[120px] pointer-events-none animate-pulse-glow" style="animation-delay: 3s;"></div>
+
+  <header class="fixed top-0 left-0 w-full z-50 transition-all duration-300" id="navbar">
+    <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center bg-slate-950/40 backdrop-blur-md mt-2 rounded-2xl border border-white/5">
+      <a href="#" class="font-mono text-xl font-bold tracking-wider flex items-center gap-2">
+        <span class="text-cyan-400">&lt;</span>
+        <span class="text-white">Rock</span><span class="text-gradient">Dev</span>
+        <span class="text-cyan-400">/&gt;</span>
+      </a>
+
+      <!-- Menu Desktop -->
+      <nav class="hidden md:flex items-center gap-8 font-medium text-sm text-slate-300">
+        <a href="#sobre" class="hover:text-cyan-400 transition-colors">/sobre</a>
+        <a href="#projetos" class="hover:text-cyan-400 transition-colors">/projetos</a>
+        <a href="#habilidades" class="hover:text-cyan-400 transition-colors">/habilidades</a>
+        <a href="#contato" class="hover:text-cyan-400 transition-colors">/contato</a>
+      </nav>
+
+      <!-- Botão Ação -->
+      <a href="#contato" class="hidden md:inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-mono font-semibold bg-cyan-500/10 text-cyan-400 border border-cyan-500/30 hover:bg-cyan-500 hover:text-black transition-all duration-300">
+        <i class="fa-solid fa-paper-plane"></i> Vamos Conversar
+      </a>
+
+      <!-- Botão Menu Mobile -->
+      <button id="mobile-menu-btn" class="md:hidden text-slate-300 hover:text-white focus:outline-none">
+        <i class="fa-solid fa-bars text-xl"></i>
+      </button>
+    </div>
+
+    <!-- Menu Mobile Dropdown -->
+    <div id="mobile-menu" class="hidden md:hidden max-w-6xl mx-auto mx-4 mt-2 p-6 glass-card rounded-2xl flex flex-col gap-4 text-center">
+      <a href="#sobre" class="text-slate-300 hover:text-cyan-400 py-2">/sobre</a>
+      <a href="#projetos" class="text-slate-300 hover:text-cyan-400 py-2">/projetos</a>
+      <a href="#habilidades" class="text-slate-300 hover:text-cyan-400 py-2">/habilidades</a>
+      <a href="#contato" class="text-slate-300 hover:text-cyan-400 py-2">/contato</a>
+    </div>
+  </header>
+
+  <main class="max-w-6xl mx-auto px-6 pt-32">
+
+    <section class="min-h-[80vh] flex flex-col justify-center items-start relative py-12">
+      <!-- Tag de Status -->
+      <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full glass-card border border-cyan-500/20 text-xs font-mono text-cyan-400 mb-6">
+        <span class="w-2 h-2 rounded-full bg-cyan-400 animate-ping"></span>
+        <span>Disponível para novos projetos</span>
+      </div>
+
+      <!-- Título Principal -->
+      <h1 class="text-4xl sm:text-6xl md:text-7xl font-extrabold tracking-tight text-white mb-6 leading-tight">
+        Criando experiências <br/>
+        web <span class="text-gradient">modernas & de alto impacto</span>.
+      </h1>
+
+      <p class="text-slate-400 text-lg sm:text-xl max-w-2xl mb-8 leading-relaxed">
+        Sou a mente por trás do <strong class="text-slate-200">RockDev</strong>. Desenvolvo interfaces limpas, código eficiente e soluções digitais esteticamente impressionantes.
+      </p>
+
+      <!-- Tags Rápidas de Habilidades -->
+      <div class="flex flex-wrap gap-2 mb-10 font-mono text-xs text-slate-300">
+        <span class="px-3 py-1.5 rounded-lg bg-slate-900/80 border border-slate-800">HTML5 / CSS3</span>
+        <span class="px-3 py-1.5 rounded-lg bg-slate-900/80 border border-slate-800">JavaScript ES6+</span>
+        <span class="px-3 py-1.5 rounded-lg bg-slate-900/80 border border-slate-800">Tailwind CSS</span>
+        <span class="px-3 py-1.5 rounded-lg bg-slate-900/80 border border-slate-800">UI/UX Design</span>
+        <span class="px-3 py-1.5 rounded-lg bg-slate-900/80 border border-slate-800">Responsive Web</span>
+      </div>
+
+      <!-- Botões de Ação Hero -->
+      <div class="flex flex-wrap items-center gap-4">
+        <a href="#projetos" class="px-6 py-3.5 rounded-xl font-medium bg-gradient-to-r from-cyan-500 to-purple-600 text-white shadow-lg shadow-cyan-500/20 hover:shadow-cyan-500/40 hover:scale-[1.02] transition-all duration-300 flex items-center gap-2">
+          Ver Projetos <i class="fa-solid fa-arrow-down text-xs"></i>
+        </a>
+        <a href="#contato" class="px-6 py-3.5 rounded-xl font-medium glass-card text-slate-200 hover:text-white hover:bg-white/5 transition-all duration-300">
+          Entrar em contato
+        </a>
+      </div>
+    </section>
+
+    <section id="sobre" class="py-20 border-t border-slate-800/60">
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-10 items-center">
+        <div class="md:col-span-5 relative">
+          <!-- Moldura com efeito CSS para Foto/Avatar -->
+          <div class="relative w-full aspect-square rounded-2xl overflow-hidden glass-card p-2">
+            <div class="w-full h-full rounded-xl bg-gradient-to-tr from-slate-900 via-slate-800 to-cyan-950/40 flex flex-col items-center justify-center p-6 text-center border border-white/5">
+              <div class="w-24 h-24 rounded-full bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center text-4xl text-cyan-400 mb-4 glow-cyan">
+                <i class="fa-solid fa-code"></i>
+              </div>
+              <h3 class="text-xl font-bold text-white mb-1">RockDev</h3>
+              <p class="text-xs font-mono text-cyan-400">Frontend & Web Creator</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="md:col-span-7">
+          <span class="text-cyan-400 font-mono text-sm tracking-wider uppercase mb-2 block">// Sobre Mim</span>
+          <h2 class="text-3xl font-bold text-white mb-6">Minimalismo com foco em performance e elegância</h2>
+          <p class="text-slate-400 mb-4 leading-relaxed">
+            Especializado no desenvolvimento de soluções estáticas leves, rápidas e visualmente atraentes. O foco do RockDev é combinar linhas limpas, navegação fluida e microinterações que enriquecem a experiência do usuário.
+          </p>
+          <p class="text-slate-400 mb-6 leading-relaxed">
+            Todos os projetos são estruturados sob medida para rodar perfeitamente em hospedagens como o **GitHub Pages**, garantindo máxima facilidade de manutenção e velocidade.
+          </p>
+
+          <div class="grid grid-cols-2 gap-4 font-mono text-sm">
+            <div class="p-4 rounded-xl bg-slate-900/50 border border-slate-800">
+              <span class="block text-2xl font-bold text-white mb-1">100%</span>
+              <span class="text-slate-400 text-xs">Foco em Responsividade</span>
+            </div>
+            <div class="p-4 rounded-xl bg-slate-900/50 border border-slate-800">
+              <span class="block text-2xl font-bold text-cyan-400 mb-1">Clean</span>
+              <span class="text-slate-400 text-xs">Código & Arquitetura</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="projetos" class="py-20 border-t border-slate-800/60">
+      <div class="flex flex-col md:flex-row md:items-end justify-between mb-12">
+        <div>
+          <span class="text-cyan-400 font-mono text-sm tracking-wider uppercase mb-2 block">// Portfólio</span>
+          <h2 class="text-3xl sm:text-4xl font-bold text-white">Projetos em Destaque</h2>
+        </div>
+        <p class="text-slate-400 text-sm max-w-md mt-4 md:mt-0">
+          Projetos selecionados criados com atenção especial ao design, usabilidade e detalhes funcionais.
+        </p>
+      </div>
+
+      <!-- Grid de Projetos -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+
+        <!-- CARD PROJETO 1: PET SHOP -->
+        <div class="glass-card rounded-2xl overflow-hidden group flex flex-col justify-between">
+          <div>
+            <!-- Banner / Prévia Visual do Projeto Pet Shop -->
+            <div class="relative h-56 bg-slate-900 overflow-hidden border-b border-white/5 flex items-center justify-center">
+              <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent z-10"></div>
+              
+              <!-- Elemento Ilustrativo em SVG/Ícones -->
+              <div class="relative z-0 text-center transition-transform duration-500 group-hover:scale-110">
+                <div class="w-20 h-20 mx-auto rounded-2xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-4xl text-amber-400 mb-2 shadow-lg shadow-amber-500/10">
+                  <i class="fa-solid fa-paw"></i>
+                </div>
+                <span class="text-xs font-mono text-slate-400 tracking-widest uppercase">Pet Care & Wellness</span>
+              </div>
+
+              <!-- Badge do Projeto -->
+              <span class="absolute top-4 left-4 z-20 px-3 py-1 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/30 text-xs font-mono">
+                Agendamento & Serviços
+              </span>
+            </div>
+
+            <!-- Conteúdo do Card -->
+            <div class="p-6">
+              <h3 class="text-2xl font-bold text-white mb-2 group-hover:text-amber-400 transition-colors">
+                Pet Shop Platform
+              </h3>
+              <p class="text-slate-400 text-sm mb-6 leading-relaxed">
+                Plataforma moderna para pet shop com catálogo de serviços (banho, tosa, veterinário), sistema visual de agendamento online e vitrine de produtos.
+              </p>
+
+              <!-- Tags de Tecnologia -->
+              <div class="flex flex-wrap gap-2 mb-6">
+                <span class="px-2.5 py-1 rounded-md bg-slate-900 text-slate-300 text-xs font-mono border border-slate-800">HTML/CSS</span>
+                <span class="px-2.5 py-1 rounded-md bg-slate-900 text-slate-300 text-xs font-mono border border-slate-800">JavaScript</span>
+                <span class="px-2.5 py-1 rounded-md bg-slate-900 text-slate-300 text-xs font-mono border border-slate-800">UI Responsiva</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Links/Ações do Card Pet Shop -->
+          <div class="px-6 pb-6 pt-0 flex items-center gap-4">
+            <!-- Substitua o atributo href abaixo pelo link real do seu site de Pet Shop no GitHub -->
+            <a href="https://seu-usuario.github.io/petshop" target="_blank" rel="noopener" class="flex-1 py-3 px-4 rounded-xl bg-amber-500/10 text-amber-400 border border-amber-500/30 font-medium text-xs font-mono text-center hover:bg-amber-500 hover:text-black transition-all duration-300 flex items-center justify-center gap-2">
+              <i class="fa-solid fa-external-link text-xs"></i> Acessar Pet Shop
+            </a>
+            <a href="#" class="p-3 rounded-xl glass-card text-slate-400 hover:text-white transition-colors" title="Código Fonte">
+              <i class="fa-brands fa-github text-lg"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- CARD PROJETO 2: STUDIO -->
+        <div class="glass-card rounded-2xl overflow-hidden group flex flex-col justify-between">
+          <div>
+            <!-- Banner / Prévia Visual do Projeto Studio -->
+            <div class="relative h-56 bg-slate-900 overflow-hidden border-b border-white/5 flex items-center justify-center">
+              <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent z-10"></div>
+              
+              <!-- Elemento Ilustrativo em SVG/Ícones -->
+              <div class="relative z-0 text-center transition-transform duration-500 group-hover:scale-110">
+                <div class="w-20 h-20 mx-auto rounded-2xl bg-purple-500/10 border border-purple-500/30 flex items-center justify-center text-4xl text-purple-400 mb-2 shadow-lg shadow-purple-500/10">
+                  <i class="fa-solid fa-camera-retro" href="./petshop.png"></i>
+                </div>
+                <span class="text-xs font-mono text-slate-400 tracking-widest uppercase">Creative & Design Studio</span>
+              </div>
+
+              <!-- Badge do Projeto -->
+              <span class="absolute top-4 left-4 z-20 px-3 py-1 rounded-full bg-purple-500/20 text-purple-300 border border-purple-500/30 text-xs font-mono">
+                Galeria & Portfolio
+              </span>
+            </div>
+
+            <!-- Conteúdo do Card -->
+            <div class="p-6">
+              <h3 class="text-2xl font-bold text-white mb-2 group-hover:text-purple-400 transition-colors">
+                Creative Studio
+              </h3>
+              <p class="text-slate-400 text-sm mb-6 leading-relaxed">
+                Website elegante para estúdio criativo e fotografia. Conta com galeria interativa de trabalhos, apresentação de equipe e formulário para reservas.
+              </p>
+
+              <!-- Tags de Tecnologia -->
+              <div class="flex flex-wrap gap-2 mb-6">
+                <span class="px-2.5 py-1 rounded-md bg-slate-900 text-slate-300 text-xs font-mono border border-slate-800">Tailwind CSS</span>
+                <span class="px-2.5 py-1 rounded-md bg-slate-900 text-slate-300 text-xs font-mono border border-slate-800">Lightbox JS</span>
+                <span class="px-2.5 py-1 rounded-md bg-slate-900 text-slate-300 text-xs font-mono border border-slate-800">Dark Design</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Links/Ações do Card Studio -->
+          <div class="px-6 pb-6 pt-0 flex items-center gap-4">
+            <!-- Substitua o atributo href abaixo pelo link real do seu site de Studio no GitHub -->
+            <a href="https://seu-usuario.github.io/studio" target="_blank" rel="noopener" class="flex-1 py-3 px-4 rounded-xl bg-purple-500/10 text-purple-400 border border-purple-500/30 font-medium text-xs font-mono text-center hover:bg-purple-500 hover:text-white transition-all duration-300 flex items-center justify-center gap-2">
+              <i class="fa-solid fa-external-link text-xs" href="./studio.png"></i> Acessar Studio
+            </a>
+            <a href="#" class="p-3 rounded-xl glass-card text-slate-400 hover:text-white transition-colors" title="Código Fonte">
+              <i class="fa-brands fa-github text-lg"></i>
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <section id="habilidades" class="py-20 border-t border-slate-800/60">
+      <span class="text-cyan-400 font-mono text-sm tracking-wider uppercase mb-2 block">// Competências</span>
+      <h2 class="text-3xl font-bold text-white mb-12">O que o RockDev entrega</h2>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Card Habilidade 1 -->
+        <div class="glass-card p-6 rounded-2xl">
+          <div class="w-12 h-12 rounded-xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-400 text-xl mb-4">
+            <i class="fa-solid fa-mobile-screen"></i>
+          </div>
+          <h3 class="text-lg font-semibold text-white mb-2">Design Responsivo</h3>
+          <p class="text-slate-400 text-sm leading-relaxed">
+            Páginas perfeitamente otimizadas para smartwatches, smartphones, tablets e telas 4K.
+          </p>
+        </div>
+
+        <!-- Card Habilidade 2 -->
+        <div class="glass-card p-6 rounded-2xl">
+          <div class="w-12 h-12 rounded-xl bg-purple-500/10 border border-purple-500/20 flex items-center justify-center text-purple-400 text-xl mb-4">
+            <i class="fa-solid fa-bolt"></i>
+          </div>
+          <h3 class="text-lg font-semibold text-white mb-2">Alta Performance</h3>
+          <p class="text-slate-400 text-sm leading-relaxed">
+            Sites estáticos super leves, garantindo carregamento instantâneo e nota alta no Lighthouse.
+          </p>
+        </div>
+
+        <!-- Card Habilidade 3 -->
+        <div class="glass-card p-6 rounded-2xl">
+          <div class="w-12 h-12 rounded-xl bg-pink-500/10 border border-pink-500/20 flex items-center justify-center text-pink-400 text-xl mb-4">
+            <i class="fa-solid fa-wand-magic-sparkles"></i>
+          </div>
+          <h3 class="text-lg font-semibold text-white mb-2">Efeitos & Animações</h3>
+          <p class="text-slate-400 text-sm leading-relaxed">
+            Firulas sutis em CSS e JavaScript que trazem vida ao projeto sem comprometer a usabilidade.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section id="contato" class="py-20 border-t border-slate-800/60">
+      <div class="glass-card rounded-3xl p-8 sm:p-12 relative overflow-hidden">
+        <div class="max-w-2xl">
+          <span class="text-cyan-400 font-mono text-sm tracking-wider uppercase mb-2 block">// Contato</span>
+          <h2 class="text-3xl sm:text-4xl font-bold text-white mb-4">Pronto para tirar seu projeto do papel?</h2>
+          <p class="text-slate-400 mb-8">
+            Estou disponível para novos freelances e projetos web. Envie uma mensagem ou conecte-se pelas redes.
+          </p>
+
+          <!-- Formulário Rápido de Simulação -->
+          <form id="contact-form" class="space-y-4 mb-8">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <input type="text" placeholder="Seu Nome" required class="w-full px-4 py-3 rounded-xl bg-slate-900/80 border border-slate-800 text-slate-200 placeholder-slate-500 focus:outline-none focus:border-cyan-500 text-sm transition-colors">
+              <input type="email" placeholder="Seu E-mail" required class="w-full px-4 py-3 rounded-xl bg-slate-900/80 border border-slate-800 text-slate-200 placeholder-slate-500 focus:outline-none focus:border-cyan-500 text-sm transition-colors">
+            </div>
+            <textarea rows="4" placeholder="Sua Mensagem..." required class="w-full px-4 py-3 rounded-xl bg-slate-900/80 border border-slate-800 text-slate-200 placeholder-slate-500 focus:outline-none focus:border-cyan-500 text-sm transition-colors"></textarea>
+            
+            <button type="submit" class="px-6 py-3.5 rounded-xl font-medium bg-cyan-500 text-black hover:bg-cyan-400 transition-all font-mono text-xs font-semibold flex items-center gap-2">
+              <i class="fa-solid fa-paper-plane"></i> Enviar Mensagem
+            </button>
+          </form>
+
+          <div id="form-message" class="hidden p-4 rounded-xl bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-sm font-mono">
+            ✨ Mensagem enviada com sucesso! Em breve entrarei em contato.
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="border-t border-slate-800/60 py-10 bg-slate-950/80">
+    <div class="max-w-6xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-6">
+      <div class="flex items-center gap-2 font-mono text-sm">
+        <span class="text-white font-bold">RockDev</span>
+        <span class="text-slate-600">|</span>
+        <span class="text-slate-500 text-xs">© 2026 Todos os direitos reservados.</span>
+      </div>
+
+      <!-- Links de Redes Sociais -->
+      <div class="flex items-center gap-6 text-slate-400">
+        <a href="https://github.com" target="_blank" rel="noopener" class="hover:text-cyan-400 transition-colors text-lg" title="GitHub">
+          <i class="fa-brands fa-github"></i>
+        </a>
+        <a href="https://linkedin.com" target="_blank" rel="noopener" class="hover:text-cyan-400 transition-colors text-lg" title="LinkedIn">
+          <i class="fa-brands fa-linkedin"></i>
+        </a>
+        <a href="mailto:contato@rockdev.com" class="hover:text-cyan-400 transition-colors text-lg" title="E-mail">
+          <i class="fa-solid fa-envelope"></i>
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Toggle Menu Mobile
+    const mobileBtn = document.getElementById('mobile-menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+
+    mobileBtn.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+
+    // Fechar menu ao clicar num link no mobile
+    mobileMenu.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        mobileMenu.classList.add('hidden');
+      });
+    });
+
+    // Simulação do envio do formulário sem alert()
+    const contactForm = document.getElementById('contact-form');
+    const formMessage = document.getElementById('form-message');
+
+    contactForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      contactForm.reset();
+      formMessage.classList.remove('hidden');
+      setTimeout(() => {
+        formMessage.classList.add('hidden');
+      }, 5000);
+    });
+  </script>
+</body>
+</html>
